@@ -29,8 +29,8 @@ def entry(request,entry_content):
 
 def search(request):
     search_entry = request.GET.get('q','')
-    if util.get_entry(search_entry) is not None:
-        return HttpResponseRedirect(reverse("entry",kwargs={"entry_content":search_entry}))
+    if(util.get_entry(search_entry) is not None):
+        return HttpResponseRedirect(reverse("entry",kwargs={'entry_content':search_entry}))
 
 def random(request):
     None
