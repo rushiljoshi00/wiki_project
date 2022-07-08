@@ -15,6 +15,7 @@ def index(request):
 def entry(request,entry_content):
     markdown = Markdown()
     entry_title = util.get_entry(entry_content)
+    print(entry_content)
 
     if entry_title is None:
         return render(request,"encyclopedia/error.html",{
@@ -23,13 +24,16 @@ def entry(request,entry_content):
         })
     else:
         return render(request,"encyclopedia/entry.html",{
-           "entry_content": markdown.convert(entry_title)
+           "entry_content": markdown.convert(entry_title)   
         })
 
 def search(request):
-    search_entry = request.GET.get("q","")
-    if util.list_entries(search_entry) is not None:
-        return HttpResponseRedirect(reverse("entry",kwargs={"entry":search_entry}))
+    search_entry = request.GET.get('q','')
+    if util.get_entry(search_entry) is not None:
+        return HttpResponseRedirect(reverse("entry",kwargs={"entry_content":search_entry}))
+
+def random(request):
+    None
 
 def edit(request):
     None
@@ -40,5 +44,3 @@ def error(request):
 def create(reqeust):
     None 
 
-def random(request):
-    None
