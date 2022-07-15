@@ -1,0 +1,33 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Your New Entry
+{% endblock %}
+
+{% block body %}
+    {% if page_exists %}
+        <div class="alert alert-warning" role="alert">
+            Sorry the  {{entry_title}} page already exists
+        </div>
+    {% endif %}
+    
+    {% if edit is None %}
+        <h2>
+            Please write the contents of your new article        
+        </h2>
+
+    {% else %}
+        <h2>
+            Please edit the {{entry_title}} page
+        </h2>
+    {% endif %}
+
+    <div class="form-group">
+        <form method = "post" action="{% url 'create' %}">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" class="btn btn-primary">
+        </form>
+    </div>
+
+{% endblock %}

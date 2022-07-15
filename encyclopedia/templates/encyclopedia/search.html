@@ -7,20 +7,21 @@
 {% endblock %}
 
 {% block body %}
-    {% if search_result == False%}
-        <h1>Sorry we could not find {search_entry} in our wiki base</h1>
-    {% endif %}
+    <h1>Search Results for "{{search_entry}}":</h1>
 
-    {% else %}
+    {% if entries %}
         <ul>
             {% for entry in entries %}
-                <li>
-                    <a href="{% url 'index' %}">{{entry}}</a>  
-                </li>
+            <li>
+                <a href="{% url 'entry' entry_content=entry %}">{{entry}}</a>  
+            </li>
             {% endfor %}
         </ul>
+
+    {% else %}
+        <p>
+            Sorry we could not find "{{search_entry}}" in our wiki base  
+        </p>
     {% endif %}
-
-
 
 {% endblock %}
